@@ -1,4 +1,4 @@
-package pkg
+package docker
 
 import (
 	"bufio"
@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/registry"
 	"github.com/docker/docker/client"
 )
 
@@ -26,11 +27,12 @@ func NewCli(ctx context.Context, repository, username, password string, log io.W
 		return nil, errors.New("username or password cannot be empty")
 	}
 
-	authConfig := types.AuthConfig{
+	authConfig := registry.AuthConfig{
 		Username:      username,
 		Password:      password,
 		ServerAddress: repository,
 	}
+
 	encodedJSON, err := json.Marshal(authConfig)
 	if err != nil {
 		return nil, err
