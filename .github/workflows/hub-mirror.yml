@@ -4,13 +4,6 @@ on:
   issues:
     types: [opened, edited]
 
-permissions:
-  actions: read/write
-  contents: read/write
-  id-token: write
-  issues: read/write
-  security-events: read/write
-
 jobs:
   mirror_transfer:
     runs-on: ubuntu-latest
