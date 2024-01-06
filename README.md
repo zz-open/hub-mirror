@@ -1,5 +1,5 @@
 # hub-mirror
-自建加速国外镜像，例如gcr.io、registry.k8s.io、k8s.gcr.io、quay.io、ghcr.io等
+加速国外镜像，例如gcr.io、registry.k8s.io、k8s.gcr.io、quay.io、ghcr.io等
 
 为避免重复工作，使用前建议在issue中搜索是否已转换
 
