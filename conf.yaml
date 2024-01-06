@@ -1,6 +1,7 @@
-Content: '{"hub-mirror": ["ghcr.io/immich-app/immich-machine-learning"]}'
-Username: xulei13140107@126.com
-Password: zz123456?
-Repository:
-Maximum:
-Output:
+Mirrors:
+- mirrors:
+  - "k8s.gcr.io/coredns:1.7.0"
+  platform: "linux/amd64"
+- mirrors:
+  - "k8s.gcr.io/kube-proxy:v1.20.13"
+  platform: "linux/arm64"
