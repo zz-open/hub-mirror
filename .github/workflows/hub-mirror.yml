@@ -9,6 +9,7 @@ permissions:
   contents: read/write
   id-token: write
   issues: read/write
+  security-events: read/write
 
 jobs:
   mirror_transfer:
