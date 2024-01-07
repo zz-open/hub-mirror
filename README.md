@@ -14,8 +14,7 @@
 
 ## 如何使用
 
-### 方案一：白嫖我的，点个 Star ，[提交issue](https://github.com/zz-open/hub-mirror/issues/new/choose)即可
-要求：严格按照模板规范提交，参考： [成功案例](https://github.com/zz-open/hub-mirror/issues/1)
+### 方案一：直接使用本项目，点个 Star ，[提交issue](https://github.com/zz-open/hub-mirror/issues/new/choose)即可
 
 > 当任务失败时，可以查看失败原因并直接修改 issues 的内容，即可重新触发任务执行
 
@@ -23,7 +22,7 @@
 
 本人 使用阿里云容器镜像服务免费存储，请勿滥用
 
-### 方案二：Fork 本项目，绑定你自己的 DockerHub 账号或其他镜像服务账号
+### 方案二：Fork 本项目，绑定你自己的云服务账号
 #### 1. 绑定账号
 在 `Settings`-`Secrets and variables`-`Actions` 选择 `New repository secret` 新建
 
@@ -91,7 +90,7 @@ DOCKER_LOGIN_SERVER 示例：
     }
 ]
 ```
-一般没有特殊情况，不需要platform参数
+没有不同架构平台需求，不需要platform参数
 
 ### 方案三：克隆代码到本地,（适合本地有'魔法'的同学使用，可以灵活修改）
 修改conf.yaml文件，填入要转换的镜像
