@@ -63,7 +63,7 @@ func Do() {
 		log.Fatalln("没有转换成功的镜像")
 	}
 
-	tmpl, err := template.New("output").ParseFiles("output.tpl")
+	tmpl, err := template.ParseFiles("output.tpl")
 	if err != nil {
 		log.Fatalln(err)
 	}
