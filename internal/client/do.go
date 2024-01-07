@@ -45,7 +45,6 @@ func Do() {
 				mu.Lock()
 				defer mu.Unlock()
 
-				// 转换
 				output, err := hubMirrorClient.TransferImage(context.Background(), source, v.Platform)
 				if err != nil {
 					log.Println(source, "转换失败: ", err)

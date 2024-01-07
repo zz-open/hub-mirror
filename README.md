@@ -3,17 +3,14 @@
 
 为避免重复工作，使用前建议在issue中搜索是否已转换
 
-示例：[issues搜索registry.k8s.io/kube-apiserver:v1.28.2](https://github.com/zz-open/hub-mirror/issues?q=registry.k8s.io%2Fkube-apiserver%3Av1.28.2)
+示例：[issues搜索gcc:latest](https://github.com/zz-open/hub-mirror/issues?q=registry.k8s.io%2Fkube-apiserver%3Av1.28.2)
 
 ## 原理
 - [engine sdk](https://docs.docker.com/engine/api/sdk/)
 - [client](https://pkg.go.dev/github.com/docker/docker/client)
 - [multi-platform](https://docs.docker.com/build/building/multi-platform/)
 
-1. docker sdk pull
-1. transfer
-1. docker sdk tag push
-1. 输出脚本
+调用docker sdk 进行 pull,tag,push等操作
 
 ## 如何使用
 
@@ -63,7 +60,8 @@ DOCKER_LOGIN_SERVER 示例：
             "registry.k8s.io/kube-apiserver:v1.28.2$demo",
             "registry.k8s.io/kube-apiserver:v1.28.2$demo:mytag",
             "要求：mirrors 标签是必选的，标题随意，内容严格按照该 json 格式，默认每次最多支持转换 20 个镜像",
-            "错误的镜像都会被跳过, 请确保 json 格式是正确的"
+            "错误的镜像都会被跳过, 请确保 json 格式是正确的",
+            "注意最后一项没有逗号"
         ],
         "platform": ""
     }
@@ -93,19 +91,20 @@ DOCKER_LOGIN_SERVER 示例：
 执行
 ```shell
 go run main.go \
---username=xxx \
+--username='xxx' \
 --password='xxx' \
---server=registry.cn-hangzhou.aliyuncs.com
--f=./conf.yaml
+--server='registry.cn-hangzhou.aliyuncs.com/zzimage' \
+--rawcontent='[{"mirrors": ["gcc:latest$mygcc:v1.0.0"],"platform": "linux/amd64"}]'
 ```
-或者
+如果嫌弃json字符串太长，也可将rawcontent配置成yaml，例如[conf.yaml](./conf.yaml),然后指定-f参数即可
 ```shell
 go run main.go \
---username=xxx \
+--username='xxx' \
 --password='xxx' \
---server=registry.cn-hangzhou.aliyuncs.com
---rawcontent='[{"mirrors": [], "platform":""}]'
+--server='registry.cn-hangzhou.aliyuncs.com/zzimage' \
+-f=./conf.yaml
 ```
+
 ## workflow 参考
 - [github-script](https://github.com/marketplace/actions/github-script)
 - [setup-go-environment](https://github.com/marketplace/actions/setup-go-environment)

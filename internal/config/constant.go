@@ -4,7 +4,7 @@ package config
 const MODE_FILE = 1
 const MODE_CMD_PARAMETER = 2
 
-// 镜像提交格式分隔符
+// 镜像提交格式分隔符, 没特殊需求不建议修改
 const MIRROR_SEPERATOR = "$"
 
 // 镜像提交最大数量

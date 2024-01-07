@@ -1,7 +1,9 @@
 package client
 
 import (
+	"bufio"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -109,6 +111,46 @@ func (c *HubMirrorClient) newAuthConfig() *registry.AuthConfig {
 
 // 业务函数 ==============================
 
+type DockerError struct {
+	ErrorDetail string `json:"errorDetail"`
+	Error       string `json:"error"`
+}
+
+func (c *HubMirrorClient) read(ctx context.Context, rd io.Reader) error {
+	if rd == nil {
+		return errors.New("rd 不能为Nil")
+	}
+
+	// docker pull 的过程中会输出json格式的信息，解析这些输出判断docker执行过程有没有出错
+	// 例如：{"errorDetail":{"message":"denied: requested access to the resource is denied"},"error":"denied: requested access to the resource is denied"}
+	var dockerError DockerError
+	bufioReader := bufio.NewReader(rd)
+	for {
+		n, err := bufioReader.ReadBytes('\n')
+		if err != nil {
+			if err == io.EOF {
+				break
+			}
+			return err
+		}
+
+		if c.writer != nil {
+			_, _ = c.writer.Write(n)
+		}
+
+		_ = json.Unmarshal(n, &dockerError)
+		if dockerError.Error != "" {
+			return errors.New(dockerError.Error)
+		}
+
+		if dockerError.ErrorDetail != "" {
+			return errors.New(dockerError.ErrorDetail)
+		}
+	}
+
+	return nil
+}
+
 func (c *HubMirrorClient) PullImage(ctx context.Context, image, platform string) error {
 	reader, err := c.client.ImagePull(ctx, image, types.ImagePullOptions{Platform: platform})
 	if err != nil {
@@ -117,12 +159,7 @@ func (c *HubMirrorClient) PullImage(ctx context.Context, image, platform string)
 
 	defer reader.Close()
 
-	_, err = io.Copy(c.writer, reader)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return c.read(ctx, reader)
 }
 
 func (c *HubMirrorClient) PushImage(ctx context.Context, image, platform string) error {
@@ -130,18 +167,18 @@ func (c *HubMirrorClient) PushImage(ctx context.Context, image, platform string)
 		RegistryAuth: c.auth,
 		Platform:     platform,
 	})
+
 	if err != nil {
 		return err
 	}
 
 	defer reader.Close()
 
-	_, err = io.Copy(c.writer, reader)
-	if err != nil {
-		return err
-	}
+	return c.read(ctx, reader)
+}
 
-	return nil
+func (c *HubMirrorClient) TagImage(ctx context.Context, source, target string) error {
+	return c.client.ImageTag(ctx, source, target)
 }
 
 func (c *HubMirrorClient) TransferImage(ctx context.Context, mirror, platform string) (*TransferInfo, error) {
@@ -155,7 +192,7 @@ func (c *HubMirrorClient) TransferImage(ctx context.Context, mirror, platform st
 		return nil, err
 	}
 
-	err = c.client.ImageTag(ctx, transferInfo.Source, transferInfo.Target)
+	err = c.TagImage(ctx, transferInfo.Source, transferInfo.Target)
 	if err != nil {
 		return nil, err
 	}

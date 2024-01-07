@@ -1,7 +1,4 @@
 Mirrors:
 - mirrors:
-  - "k8s.gcr.io/coredns:1.7.0"
+  - "gcc:latest$mygcc:v2.0.0"
   platform: "linux/amd64"
-- mirrors:
-  - "k8s.gcr.io/kube-proxy:v1.20.13"
-  platform: "linux/arm64"
