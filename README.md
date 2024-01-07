@@ -14,20 +14,28 @@
 
 ## 如何使用
 
-### 场景一：github issue(适用于开放给其他同学使用，不太灵活)
+### 方案一：白嫖我的，点个 Star ，[提交issue](https://github.com/zz-open/hub-mirror/issues/new/choose)即可
+要求：严格按照模板规范提交，参考： [成功案例](https://github.com/zz-open/hub-mirror/issues/1)
 
+> 当任务失败时，可以查看失败原因并直接修改 issues 的内容，即可重新触发任务执行
+
+限制：每次提交最多 20 个镜像地址，避免超时
+
+本人 使用阿里云容器镜像服务免费存储，请勿滥用
+
+### 方案二：Fork 本项目，绑定你自己的 DockerHub 账号或其他镜像服务账号
 #### 1. 绑定账号
 在 `Settings`-`Secrets and variables`-`Actions` 选择 `New repository secret` 新建
 
-#### 如果要使用默认的 hub.docker.com 镜像服务
-以下参数必填
+- 如果要使用默认的 hub.docker.com 镜像服务
+以下secret必需创建
 ```text
 DOCKER_LOGIN_USERNAME: 用户名
 DOCKER_LOGIN_PASSWORD: 密码
 ```
 
-#### 如果需要使用其它镜像服务，例如腾讯云、阿里云等
-以下参数必填
+- 如果需要使用其它镜像服务，例如腾讯云、阿里云等
+以下secret必需创建
 ```text
 DOCKER_LOGIN_USERNAME: 用户名
 DOCKER_LOGIN_PASSWORD: 密码
@@ -85,7 +93,7 @@ DOCKER_LOGIN_SERVER 示例：
 ```
 一般没有特殊情况，不需要platform参数
 
-### 场景二：克隆代码到本地（适合本地有魔法的同学使用，可以灵活修改）
+### 方案三：克隆代码到本地,（适合本地有'魔法'的同学使用，可以灵活修改）
 修改conf.yaml文件，填入要转换的镜像
 
 执行
