@@ -23,13 +23,14 @@ jobs:
           --password='${{ secrets.DOCKER_LOGIN_PASSWORD }}' \
           --server='${{ secrets.DOCKER_LOGIN_SERVER }}' \
           --rawcontent='${{ github.event.issue.body }}'
+          cat output.sh
       # 4. 当成功输出 output.sh 文件时，为 issues 添加评论
       - name: Add comment
         if: ${{ hashFiles('output.sh') }}
         uses: actions/github-script@v7
         with:
           script: |
-            const script = require('output.js')
+            const script = require('./output.js')
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
