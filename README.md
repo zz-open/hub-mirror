@@ -3,7 +3,7 @@
 
 为避免重复工作，使用前建议在issue中搜索是否已转换
 
-示例：[issues搜索gcc:latest](https://github.com/zz-open/hub-mirror/issues?q=registry.k8s.io%2Fkube-apiserver%3Av1.28.2)
+示例：[issues搜索gcc:latest](https://github.com/zz-open/hub-mirror/issues?q=gcc%3Alatest)
 
 ## 原理
 - [engine sdk](https://docs.docker.com/engine/api/sdk/)
