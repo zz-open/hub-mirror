@@ -43,7 +43,7 @@ DOCKER_LOGIN_SERVER: 仓库地址
 ```
 DOCKER_LOGIN_SERVER 示例：
 ```text
-腾讯云: `ccr.ccs.tencentyun.com/xxx`
+腾讯云: `hkccr.ccs.tencentyun.com/xxx`
 
 阿里云: `registry.cn-hangzhou.aliyuncs.com/xxx`
 ```
