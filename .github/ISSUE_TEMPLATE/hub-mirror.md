@@ -8,13 +8,13 @@ labels: ["hub-mirror"]
 [
     {
         "mirrors": [
-            "格式：原始镜像 | 自定义镜像名:自定义标签名",
-            "其中 |自定义镜像名:自定义标签名 是可选的",
+            "格式：原始镜像$自定义镜像名:自定义标签名",
+            "$ 为分隔符，左边为原始镜像，右边为自定义镜像",
             "以下是三个正确示例",
-            "registry.k8s.io/kube-apiserver:v1.28.2",
-            "registry.k8s.io/kube-apiserver:v1.28.2$demo",
-            "registry.k8s.io/kube-apiserver:v1.28.2$demo:mytag",
-            "要求：mirrors 标签是必选的，标题随意，内容严格按照该 json 格式，默认每次最多支持转换 20 个镜像",
+            "gcc:latest",
+            "gcc:latest$mygcc",
+            "gcc:latest$mygcc:v1.0.0",
+            "注意：mirrors 标签必选，标题随意，默认每次最多支持转换 20 个镜像",
             "无效的镜像会忽略, 请确保 json 格式是正确的"
         ],
         "platform": ""

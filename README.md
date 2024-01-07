@@ -53,15 +53,14 @@ DOCKER_LOGIN_SERVER 示例：
 [
     {
         "mirrors": [
-            "格式：原始镜像[分隔符]自定义镜像全名",
-            "其中 [分隔符]自定义镜像全名 是可选的",
+            "格式：原始镜像$自定义镜像名:自定义标签名",
+            "$ 为分隔符，左边为原始镜像，右边为自定义镜像",
             "以下是三个正确示例",
-            "registry.k8s.io/kube-apiserver:v1.28.2",
-            "registry.k8s.io/kube-apiserver:v1.28.2$demo",
-            "registry.k8s.io/kube-apiserver:v1.28.2$demo:mytag",
-            "要求：mirrors 标签是必选的，标题随意，内容严格按照该 json 格式，默认每次最多支持转换 20 个镜像",
-            "错误的镜像都会被跳过, 请确保 json 格式是正确的",
-            "注意最后一项没有逗号"
+            "gcc:latest",
+            "gcc:latest$mygcc",
+            "gcc:latest$mygcc:v1.0.0",
+            "注意：mirrors 标签必选，标题随意，默认每次最多支持转换 20 个镜像",
+            "无效的镜像会忽略, 请确保 json 格式是正确的"
         ],
         "platform": ""
     }
@@ -72,18 +71,19 @@ DOCKER_LOGIN_SERVER 示例：
 [
     {
         "mirrors": [
-            "k8s.gcr.io/kube-proxy:v1.20.13"
+             "gcc:latest$mygcc-arm64:v1.0.0"
         ],
         "platform": "linux/arm64"
     }
     {
         "mirrors": [
-            "k8s.gcr.io/kube-proxy:v1.20.13"
+            "gcc:latest$mygcc-amd64:v1.0.0"
         ],
         "platform": "linux/amd64"
     }
 ]
 ```
+一般没有特殊情况，不需要platform参数
 
 ### 场景二：克隆代码到本地（适合本地有魔法的同学使用，可以灵活修改）
 修改conf.yaml文件，填入要转换的镜像
